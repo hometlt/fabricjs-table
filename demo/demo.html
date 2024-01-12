@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>canvas-select</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="demo.js" type="module"></script>
+</head>
+
+<body id="app">
+
+  <div id="workspace">
+
+    <div id="wrapper">
+    </div>
+    <div id="buttons-menu">
+      <button id="create-table">Create Table</button>
+      <button id="draw-rect">Draw Rect</button>
+      <button id="draw-table">Draw Table</button>
+      <button id="analyze">Analyze</button>
+    </div>
+    <div id="wrapper-menu">
+      <button id="undo">↺</button>
+      <button id="redo">↻</button>
+      <button id="zoom-in">+</button>
+      <button id="fit-to-screen">⟺</button>
+      <button id="zoom-out">-</button>
+      <button id="clear">clear</button>
+    </div>
+  </div>
+
+  <dialog id="result-dialog">
+    <button id="close-dialog">×</button>
+    <div id="result-container"></div>
+  </dialog>
+
+  <div id="context-menu" class="context-menu">
+    <ul class="menu">
+      <li class="action" id="set-column-header">Set Column Header</li>
+      <li class="action" id="set-row-header">Set Row Header</li>
+      <li class="action" id="unset-column-header">Unset Column Header</li>
+      <li class="action" id="unset-row-header">Unset Row Header</li>
+      <li class="action" id="insert-column">Insert Column</li>
+      <li class="action" id="insert-row">Insert Row</li>
+      <li class="action" id="undo-table-changes">Undo table changes</li>
+      <li class="action" id="redo-table-changes">Redo table changes</li>
+      <li class="action" id="merge-cells">Merge Cells</li>
+      <li class="action" id="unmerge-cells">Unmerge Cells</li>
+      <li class="action" id="delete-column">Delete Column</li>
+      <li class="action" id="delete-row">Delete Row</li>
+      <li class="action" id="delete-table">Delete Table</li>
+    </ul>
+  </div>
+</body>
+
+</html>
