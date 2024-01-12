@@ -1,5 +1,7 @@
 /**
- * This code appears to be a TypeScript class definition for a table object using FabricJS, a powerful and extensible JavaScript library for working with the HTML5 canvas. This class extends the fabric.Group class, which is a part of the FabricJS library. The table object is designed to have rows, columns, and cells that can be interactively manipulated within an HTML canvas.
+ * TypeScript class definition for a table object using FabricJS, 
+ * This class extends the fabric.Group class, which is a part of the FabricJS library. 
+ * The table object is designed to have rows, columns, and cells that can be interactively manipulated within an HTML canvas.
  *
  * Here's a brief overview of the key features and functionalities provided by this class:
  *
@@ -34,14 +36,13 @@
  *
  * There is an initialization of an undo mechanism for reverting changes.
  */
-import { icons } from './Icons';
+import {icons} from './Icons';
 import {fabric} from "fabric";
 import "./Object";
 import "./Util";
 import {IEvent} from "fabric/fabric-impl";
 
 const tableOwnProperties = ["columns", "rows", "cells","fontSize"]
-
 
 /**
  * FabricJS Table Object
@@ -106,8 +107,6 @@ class FabricTable extends fabric.Group {
   private _cellsmodified?: boolean
   private _rowsmodified?: boolean
   private _columnsmodified?: boolean
-  // private _modifiedRow?: fabric.TableRow;
-  // private _modifiedColumn?: fabric.TableColumn;
 
   private _resizingXData?: {
     col:  fabric.TableColumn,
@@ -120,10 +119,6 @@ class FabricTable extends fabric.Group {
     initial: number
   }
 
-  // private _rowInitialHeight?: number
-  // private _columnInitialWidth?: number
-  // private _scalingMinX?: number
-  // private _scalingMinY?: number
   private _cols: fabric.TableColumn[]
   private _rows: fabric.TableRow[]
   private _cells: fabric.TableCellDefinition[][]
@@ -171,7 +166,6 @@ class FabricTable extends fabric.Group {
     this.enableSelection();
     this._updateCellsGeometry();
 
-
     if(!this.columns?.length && this.width){
       this.set('columns',[{width: this.width}])
     }
@@ -211,10 +205,7 @@ class FabricTable extends fabric.Group {
 
     if(dirty){
       this._updateCellsGeometry();
-      // this.dirty = true;
-      // this.canvas?.renderAll();
     }
-
   }
 
   // Clear the cache canvas and mark the object as dirty to avoid visual artifacts caused by noScaleCache property
@@ -561,9 +552,11 @@ class FabricTable extends fabric.Group {
   addColumn(){
     return this.insertColumn(this._cols.length)
   }
+  
   addRow(){
     return this.insertRow(this._rows.length)
   }
+  
   // Insert a column at a specific position
   insertColumn(position = -1, width = this._cols[this._cols.length - 1].width || 1): void {
 
@@ -625,7 +618,6 @@ class FabricTable extends fabric.Group {
       }
     }
 
-
     for (let y = position; y < this._rows.length; y++) {
       this._rows[y].index++;
     }
@@ -686,7 +678,6 @@ class FabricTable extends fabric.Group {
     return fabric.Object.prototype.toObject.call(this,[ ...tableOwnProperties, ...propertiesToInclude]);
   }
 
-  //
   override toDatalessObject (propertiesToInclude: string[]) {
     return fabric.Object.prototype.toDatalessObject.call(this,propertiesToInclude)
   }
@@ -750,7 +741,6 @@ class FabricTable extends fabric.Group {
     return !!this.selection.find(c => (c.colspan || 1) > 1 || (c.rowspan || 1) > 1);
   }
 
-
   setHeadersAvailableForSelection(): boolean{
     if (!this.selection.length) return false;
     return !!this.selection?.find((cell: any) => !cell.c.header)
@@ -794,7 +784,6 @@ class FabricTable extends fabric.Group {
     return true;
   }
 
-
   setHeadersForSelectedColumns(): void{
     let bounds = this.getSelectionBounds();
     if(bounds){
@@ -829,7 +818,6 @@ class FabricTable extends fabric.Group {
       }
     }
   }
-
 
   // Clears the hover effect on a cell
   private _unhoverCell() {
@@ -878,7 +866,6 @@ class FabricTable extends fabric.Group {
     this.clearSelection()
     this._deleteCells();
     this._cells = new Array(cells.length);
-
 
     for (let y = 0; y < cells.length; y++) {
       let x = 0
@@ -1268,8 +1255,7 @@ class FabricTable extends fabric.Group {
 
   // Creates a cell at a specific position
   private _createCell(x: number, y: number, cell: fabric.TableCellOptions = {}) {
-    let w = cell?.colspan || 1,
-        h = cell?.rowspan || 1;
+    let w = cell?.colspan || 1, h = cell?.rowspan || 1;
 
     if(!this._rows){
       this._rows = []
@@ -1290,7 +1276,6 @@ class FabricTable extends fabric.Group {
       colspan: w,
       rowspan: h
     } as fabric.TableCell
-
 
     for (let xi = 0; xi < w; xi++) {
       for (let yi = 0; yi < h; yi++) {
@@ -1330,7 +1315,6 @@ class FabricTable extends fabric.Group {
 
   // Initiates the row resizing process
   private rowResizingBegin() {
-
     let row = this._getCurrentRow()
     if(!row){
       return
@@ -1475,7 +1459,6 @@ class FabricTable extends fabric.Group {
       let column = this._cols[columnindex];
       left += column.width;
 
-
       if(!this.controls["col" + columnindex]) {
         this.controls["col" + columnindex] = new fabric.Control({
           render: this._renderInvisible,
@@ -1489,7 +1472,6 @@ class FabricTable extends fabric.Group {
         })
       }
     }
-
     this.dirty = true;
   }
 
@@ -1550,7 +1532,6 @@ class FabricTable extends fabric.Group {
     this.canvas?.renderAll();
   }
 
-
   // Updates the width of the table based on columns
   private  _updateTableWidth(): void {
     if(this._cols && this._cells){
@@ -1589,7 +1570,6 @@ class FabricTable extends fabric.Group {
   private _deleteColumn(position = this._cols.length - 1): void {
     let column = this._cols[position];
     delete this.controls["col" + (this._cols.length - 1)]
-
 
     let processed: fabric.TableCell[] = [];
     for (let y = 0; y < this._rows.length; y++) {
@@ -1727,7 +1707,6 @@ class FabricTable extends fabric.Group {
     resizerSize: 6
   }
 }
-
 
 FabricTable.prototype.type = 'table'
 FabricTable.prototype.stateProperties = [...fabric.Object.prototype.stateProperties!, ...tableOwnProperties ];
@@ -1977,9 +1956,6 @@ declare module "fabric" {
 
       on(eventName: "viewport:translate", handler: (e: fabric.IPoint) => void): T;
       on(eventName: "viewport:scaled", handler: (e: {scale: number}) => void): T;
-
-
-
     }
     class Table extends FabricTable {
       //todo history mixin
@@ -1992,9 +1968,6 @@ declare module "fabric" {
       redo(): void;
       undoable(): boolean;
       redoable(): boolean;
-      //end
-
-
     }
   }
 }
